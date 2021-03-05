@@ -12,8 +12,12 @@ def home_page():
 """ Page that displays the result of API request """
 @app.route('/get-food')
 def get_food():
-    pass
-    # search_input = request.args.get('food_input')
+    search_input = request.args.get('food_input')
+
+    if len(search_input) < 1 or type(search_input) == int:
+        print("You can't enter a number, enter a food item with letters")
+    else:
+        return render_template('food.html')
     
     # TODO write code for api requests and what to do with the responses
 
