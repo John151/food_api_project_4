@@ -11,10 +11,13 @@
 
     <h2>What are you in the mood for?</h2>
     
-    <div>
-        <input type="search" id="food_input" name="food_input" placeholder="Search" required>
-        <button type="button" name="food_button" for="food_input" class="btn btn-outline-dark">Search</button>
-    </div>
+    <form action="/get-food" method="GET">
+        <div class="center">
+            <input type="search" id="food_input" name="food_input" placeholder="Search" required><br>
+            <button type="submit" id="search_button" name="food_button" for="food_input" class="btn btn-outline-dark">Search</button>
+        </div>
+    </form>
+
 </div> <!-- End of container div -->
 
 
