@@ -1,28 +1,53 @@
 import requests
 import os
+# from dotenv import load_dotenv
+# load_dotenv()
 
-APP_ID = os.getenv("APP_ID")
+RECIPE_API_KEY = os.getenv('RECIPE_API_KEY')
+# query name, example 'chicken'
+search_term = 'burger'
+# first API request gets data based on keyword. It stores the name if the food and an id.
+# ID is used in second request, user will choose which result they want
 
-APP_KEY = os.getenv("APP_KEY")
+url = f'https://api.spoonacular.com/recipes/complexSearch?query={search_term}&apiKey={RECIPE_API_KEY}'
+data_recipes = requests.get(url).json()
+results = data_recipes['results']
+id_title_dictionary = {}
 
-# query name, example 'chicken'. cannot be used with recipe id
-q = 'burger'
-# recipe ID, used with another edamam API. cannot be used with query_name
-r = ''
-# maximum number of ingredients
-ingr = 5
-# default number of results is 10, can be changed
-url = f'https://api.edamam.com/search?q={q}&app_id={APP_ID}&app_key={APP_KEY}'
+for id_title_pair in results:
+    recipe_id = id_title_pair['id']
+    recipe_title = id_title_pair['title']
+    id_title_dictionary.update({recipe_title: recipe_id})
 
-data = requests.get(url).json()
-results = data['hits']
-for result in results:
-    recipe = result['recipe']
-    name = recipe['label']
-    url = recipe['url']
-    image = recipe['image']
-    ingredient_strings = recipe['ingredientLines']
-    calories = recipe['calories']
-    print(f'name: {name}, url: {url}\n'
-          f'ingredients: {ingredient_strings}\n'
-          f'calories: {calories}\n\n')
+
+# example for $50,000 burger, id = 631814
+recipe_id = '631814'
+recipe_instructions_url = f'https://api.spoonacular.com/recipes/{recipe_id}/information?apiKey={RECIPE_API_KEY}&analyzedInstructions=true.'
+
+# reguest that gets instructions based on recipe id
+data = requests.get(recipe_instructions_url).json()
+
+summary = data['summary']
+extended_ingredients = data['extendedIngredients']
+
+ingredient_list = []
+for ingredient in extended_ingredients:
+    # pulls ingredients and puts them in a list
+    original = ingredient['original']
+    ingredient_list.append(original)
+
+list_analyzed_instructions = data['analyzedInstructions']
+
+# container for steps to be added below
+full_step_list = []
+
+# loops to fill list with steps
+for item in list_analyzed_instructions:
+    steps = item['steps']
+    for instruction in steps:
+        number = instruction['number']
+        step = instruction['step']
+        full_step_list.append(step)
+
+# testing print statement
+# print(full_step_list)
