@@ -2,13 +2,23 @@
 
 {% block content %}
 
-<h1>What to Eat?</h1>
-
-<h2>What food are you in the mood for?</h2>
-
 <div class="container">
-    <input type="search" id="food_input" name="food_input" value="Search">
-    <button type="button" for="food_input" class="btn btn-outline-dark">Search</button>
-</div>
+    <div class="row" id="header">
+        <div class="p-3">
+            <h1>What to Eat?</h1>
+        </div>
+    </div> <!-- End of first row div -->
+
+    <h2>What are you in the mood for?</h2>
+    
+    <form action="/get-food" method="GET">
+        <div class="center">
+            <input type="search" id="food_input" name="food_input" placeholder="Search" required><br>
+            <button type="submit" id="search_button" name="food_button" for="food_input" class="btn btn-outline-dark">Search</button>
+        </div>
+    </form>
+
+</div> <!-- End of container div -->
+
 
 {% endblock %}
