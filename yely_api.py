@@ -8,14 +8,14 @@
 
 import os 
 import requests
-
-api_key = os.environ.get('YELP_API_KEY')
+from api_key import api_key
 
 url = 'https://api.yelp.com/v3/businesses/search'
 
 query = input('What type of restaurants? ')
 
-headers = {'Authorization': 'Bearer ' + api_key}
+headers = {'Authorization':'Bearer %s' % api_key}
+
 params = { 
     'term' : query,
     'categories': 'restaurants',

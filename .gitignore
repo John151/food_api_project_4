@@ -4,3 +4,4 @@ keys.txt
 .idea
 __pycache__
 *.pyc
+api_key.py
