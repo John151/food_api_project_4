@@ -1,8 +1,14 @@
 from flask import Flask, request, render_template
 
-# TODO import all the api files when they are done
+import picture_api
+import search_util
+import yelp_api
 
-app = Flask(__name__)
+from picture_api import request_images
+from search_util import prep_search_term
+from yelp_api import yelp_call
+
+app = Flask(__name__) # __name__ references this file
 
 """ Home page which is our index file """
 @app.route('/')
@@ -14,13 +20,13 @@ def home_page():
 def get_food():
     search_input = request.args.get('food_input')
 
-    if len(search_input) < 1 or type(search_input) == int:
-        print("You can't enter a number, enter a food item with letters")
-    else:
-        return render_template('food.html')
-    
-    # TODO write code for api requests and what to do with the responses
+    food_img = picture_api.request_images(search_input)
+
+    # if len(search_input) < 1 or type(search_input) == int:
+    #     print("You can't enter a number, enter a food item with letters")
+    # else:
+    return render_template('food.html', search_term=search_input, food_img=food_img)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True) # turn on developer mode, shows us actual errors when they pop up
     
