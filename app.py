@@ -21,11 +21,9 @@ def get_food():
     search_input = request.args.get('food_input')
 
     food_img = picture_api.request_images(search_input)
+    food_yelp = yelp_api.yelp_call(search_input)
 
-    # if len(search_input) < 1 or type(search_input) == int:
-    #     print("You can't enter a number, enter a food item with letters")
-    # else:
-    return render_template('food.html', search_term=search_input, food_img=food_img)
+    return render_template('food.html', search_term=search_input, food_img=food_img, food_yelp=food_yelp)
 
 if __name__ == '__main__':
     app.run(debug=True) # turn on developer mode, shows us actual errors when they pop up
