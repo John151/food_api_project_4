@@ -23,8 +23,7 @@ def recipe_call(search_term):
         recipe_title = id_title_pair['title']
         # add the title to the recipe list
         recipe.append(recipe_title)
-        print(recipe_title)
-        print('8' * 50)
+
         recipe_instructions_url = f'https://api.spoonacular.com/recipes/{recipe_id}/information?apiKey={RECIPE_API_KEY}&analyzedInstructions=true.'
         # reguest that gets instructions based on recipe id
         data = requests.get(recipe_instructions_url).json()
