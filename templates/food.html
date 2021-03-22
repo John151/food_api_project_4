@@ -28,4 +28,15 @@
 
 {% endif %}
 
+<!-- Food Recipe Results -->
+{% if food_recipe %}
+
+<p>{{food_recipe}}</p>
+
+{% else %} 
+
+<h2>Sorry, no recipes to display</h2>
+
+{% endif %}
+
 {% endblock %}
