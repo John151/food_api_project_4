@@ -1,1 +1,31 @@
-<h1>Test</h1>
+<!-- this notation is called Jinja2, a method of connecting Python code with HTML templates -->
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Double curly braces notation is like a print statement -->
+<h1>Here is your result for "{{search_term}}" ideas</h1>
+
+<!-- Food Image -->
+{% if food_img %}
+
+<img src="{{food_img}}"
+
+{% else %}
+
+<h2>Sorry, no food image</h2>
+
+{% endif %}
+
+<!-- Food Yelp Results -->
+{% if food_yelp %}
+
+<h2>{{food_yelp}}</h2>
+
+{% else %}
+
+<h2>Sorry, no local results to display</h2>
+
+{% endif %}
+
+{% endblock %}
