@@ -29,17 +29,25 @@
 {% endif %}
 
 <!-- Food Recipe Results -->
-<!--{% if recipe_title %}-->
+{% if recipe_title %}
 
 <p>{{recipe_title}}</p>
 <p>{{recipe_summary}}</p>
-<p>{{recipe_ingredients}}</p>
-<p>{{recipe_instructions}}</p>
+<ul>
+    {% for ingredient in recipe_ingredients %}
+    <li>{{ingredient}}</li>
+    {% endfor %}
+</ul>>
+<ol>
+    {% for instruction in recipe_instructions %}
+    <li>{{instruction}}</li>
+    {% endfor %}
+</ol>
 
-<!--{% else %} -->
+{% else %}
 
-<!--<h2>Sorry, no recipes to display</h2>-->
+<h2>Sorry, no recipes to display</h2>
 
-<!--{% endif %}-->
+{% endif %}
 
 {% endblock %}
