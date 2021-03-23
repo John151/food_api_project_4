@@ -25,9 +25,13 @@ def get_food():
     food_img = picture_api.request_images(search_input)
     food_yelp = yelp_api.yelp_call(search_input)
     food_recipe = recipe_api.recipe_call(search_input)
+    recipe_title = food_recipe[0]
+    recipe_ingredients = food_recipe[1]
+    recipe_instructions = food_recipe[2]
 
-    return render_template('food.html', search_term=search_input, food_img=food_img, food_yelp=food_yelp, food_recipe=food_recipe)
+    return render_template('food.html', search_term=search_input, food_img=food_img, food_yelp=food_yelp, recipe_title=recipe_title,
+                           recipe_ingredients=recipe_ingredients, recipe_instructions=recipe_instructions)
+
 
 if __name__ == '__main__':
     app.run(debug=True) # turn on developer mode, shows us actual errors when they pop up
-    

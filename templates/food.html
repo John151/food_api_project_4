@@ -9,7 +9,7 @@
 <!-- Food Image -->
 {% if food_img %}
 
-<img src="{{food_img}}"
+<img src="{{food_img}}">
 
 {% else %}
 
@@ -29,11 +29,22 @@
 {% endif %}
 
 <!-- Food Recipe Results -->
-{% if food_recipe %}
+{% if recipe_title %}
 
-<p>{{food_recipe}}</p>
+<p>{{recipe_title}}</p>
+<p>{{recipe_summary}}</p>
+<ul>
+    {% for ingredient in recipe_ingredients %}
+    <li>{{ingredient}}</li>
+    {% endfor %}
+</ul>>
+<ol>
+    {% for instruction in recipe_instructions %}
+    <li>{{instruction}}</li
+    {% endfor %}
+</ol>
 
-{% else %} 
+{% else %}
 
 <h2>Sorry, no recipes to display</h2>
 
