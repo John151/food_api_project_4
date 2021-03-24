@@ -31,14 +31,14 @@ def yelp_call(search_term):
             'categories': 'restaurants',
             'location': 'Minneapolis,MN',
             'radius': '10000',
-            'offset': 50,
-            'price': 1,
+            'sort_by': 'rating',
+            'open_now': True,
             'limit': 50
         }
 
         response = requests.get(url, headers=headers, params=params).json()
         restaurants = response['businesses']
-        data = response.json
+        # data = response.json
 
         for r in restaurants:
             name = r['name']
@@ -47,9 +47,9 @@ def yelp_call(search_term):
             display_phone = r['display_phone']
             address = ','.join(location['display_address'])
 
-        return(f'{name}, {rating}, {address} {display_phone}')
-        add_cache(search_term, data)
-        return get_business_name(data)
+            return(f'{name}, {rating}, {address} {display_phone}')
+        add_cache(search_term, response)
+        return get_business_name(response)
   
     except requests.exceptions.Timeout:
         log.warning('Request Timed Out: ' + response)
