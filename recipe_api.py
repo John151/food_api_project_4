@@ -8,6 +8,8 @@ def recipe_call(search_term):
     # uses search term and returns most popular result (1, can be modified in url at the end '&number=')
     # returns results only containing an ingredients list and cooking instructions
 
+    RECIPE_API_KEY = os.environ.get('RECIPE_API_KEY')
+
     url = f'https://api.spoonacular.com/recipes/complexSearch?query={search_term}&apiKey={RECIPE_API_KEY}&addRecipeInformation=True&fillIngredients=True&sort=popularity&number=1'
     data_recipes = requests.get(url).json()
     results = data_recipes['results'][0]
@@ -38,7 +40,6 @@ def recipe_call(search_term):
             step = instruction['step']
             full_step_list.append(step)
     recipe.append(full_step_list)
-
     return recipe
 
 # returns info in list with following format: [string, [ingredient list], [preparation step list]]
