@@ -5,30 +5,20 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def recipe_call(search_term):
+    # uses search term and returns most popular result (1, can be modified in url at the end '&number=')
+    # returns results only containing an ingredients list and cooking instructions
 
-    RECIPE_API_KEY = os.getenv('RECIPE_API_KEY')
-
-    #first API request gets data based on keyword. It stores the name if the food and an id.
-    # ID is used in second request, user will choose which result they want
-
-    url = f'https://api.spoonacular.com/recipes/complexSearch?query={search_term}&apiKey={RECIPE_API_KEY}'
+    url = f'https://api.spoonacular.com/recipes/complexSearch?query={search_term}&apiKey={RECIPE_API_KEY}&addRecipeInformation=True&fillIngredients=True&sort=popularity&number=1'
     data_recipes = requests.get(url).json()
-    results = data_recipes['results']
-    # takes first result
-    result = results[0]
+    results = data_recipes['results'][0]
 
     # container for 1 recipe
     recipe = []
-    recipe_id = result['id']
-    recipe_title = result['title']
+    recipe_title = results['title']
     # add the title to the recipe list
     recipe.append(recipe_title)
 
-    recipe_instructions_url = f'https://api.spoonacular.com/recipes/{recipe_id}/information?apiKey={RECIPE_API_KEY}&analyzedInstructions=true.'
-    # reguest that gets instructions based on recipe id
-    data = requests.get(recipe_instructions_url).json()
-
-    extended_ingredients = data['extendedIngredients']
+    extended_ingredients = results['extendedIngredients']
     ingredient_list = []
     for ingredient in extended_ingredients:
         # pulls ingredients and puts them in a list
@@ -38,7 +28,7 @@ def recipe_call(search_term):
     # add the list of ingredients to the recipe list
     recipe.append(ingredient_list)
 
-    list_analyzed_instructions = data['analyzedInstructions']
+    list_analyzed_instructions = results['analyzedInstructions']
     # container for steps to be added below
     full_step_list = []
     # loops to fill list with steps
@@ -55,13 +45,13 @@ def recipe_call(search_term):
 # ['Title', ['ingredient 1', 'ingredient 2', etc], ['step 1', 'step 2', etc]]
 # example of real return below
 
-"""['Falafel Burger',
+"""['Slow Cooker Chicken Taco Soup', 
 
-['540 ml can of chickpeas, drained and rinsed', '2 ts
-p tahini', '½ tsp sriracha sauce', '3 cloves garlic', '3 tbsp fresh parsley, roughly chopped', '¼ large red onion, diced', '4 tbsp peanut oil', '8 slices of cucumber', '8 slices of
-tomato', "4 hamburger buns (I used President's Choice multi-grain thins)", 'Tzatziki for topping'], 
+['1 (15 oz.) can black beans', '2 (10 oz.) cans diced tomatoes with green chilis', '1 (15 oz.) can
+diced tomatoes', '1 (15 oz.) can chili beans', '1 (15 oz.) can whole kernal corn', '1 large red onion (finely chopped)', '3 boneless
+skinless chicken breasts (cut into 1" cubes)'], 
 
-['Pat the chickpeas dry with a paper towel and throw them into a food processor a
-long with the garlic.', 'Puree until smooth.', 'Using your clean hands incorporate tahini, sriracha, parsley and onion into the chickpea mixture.', 'Form mixture into four patties a
-nd set aside.', 'Heat peanut oil in a large skillet over medium heat.', 'Once the oil begins to shimmer add the patties and cook for three minutes per side or until golden brown.',
-'Remove from and place in a hamburger bun.', 'Top each burger with 2 slices of tomato, 2 slices of cucumber and a dollop of tzatziki.', 'Serve immediately.']"""
+['Once you have all of your ingredients added, allow it to cook all day for 8 hours o
+n low. If you are wanting to make this a little faster, turn it on high and cook for 4 hours.When your Chicken Taco Soup is ready to
+serve, add in some crushed tortilla shells, shredded cheddar cheese, and a little sour cream.']]
+"""
