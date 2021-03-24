@@ -32,12 +32,11 @@
 {% if recipe_title %}
 
 <p>{{recipe_title}}</p>
-<p>{{recipe_summary}}</p>
 <ul>
     {% for ingredient in recipe_ingredients %}
     <li>{{ingredient}}</li>
     {% endfor %}
-</ul>>
+</ul>
 <ol>
     {% for instruction in recipe_instructions %}
     <li>{{instruction}}</li>

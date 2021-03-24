@@ -1,8 +1,6 @@
 # source env/bin/activate
 import requests
 import os
-from dotenv import load_dotenv
-load_dotenv()
 
 def recipe_call(search_term):
     # uses search term and returns most popular result (1, can be modified in url at the end '&number=')
