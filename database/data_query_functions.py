@@ -8,14 +8,16 @@ def create_api_table():
     cursor = conn.cursor()
     conn.execute('''CREATE TABLE IF NOT EXISTS api_search (
                     search_term TEXT UNIQUE,
-                    recipe TEXT,
-                    restaurant TEXT);
+                    recipe BLOB,
+                    restaurant Text);
                     ''')
     conn.commit()
+    print('api table created')
 
 def add_new_data(search_term, recipe, restaurant):
     query = 'insert into api_search (search_term, recipe, restaurant) values (?, ?, ?)'
     try:
+        recipe = str(recipe)
         conn = sqlite3.connect('food_db.sqlite')
         cursor = conn.cursor()
         with conn:
@@ -27,7 +29,8 @@ def add_new_data(search_term, recipe, restaurant):
         print(e)
     finally:
         conn.close()
-        
+
+
 # def byte_array(image):
 #     with open(image, 'rb') as image_b:
 #         f = image_b.read()
