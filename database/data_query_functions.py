@@ -1,25 +1,33 @@
 import sqlite3
 
-# create or connect to database
+# Creates or opens connection to db file
 conn = sqlite3.connect('food_db.sqlite')
-cursor = conn.cursor()
 
-def create_database():
-    conn.execute('''CREATE TABLE api_search (search_term TEXT UNIQUE, image BLOB,  
-                    recipe TEXT, restaurant TEXT);''')
+
+def create_api_table():
+    cursor = conn.cursor()
+    conn.execute('''CREATE TABLE IF NOT EXISTS api_search (
+                    search_term TEXT UNIQUE,
+                    image BLOB,  
+                    recipe TEXT,
+                    restaurant TEXT)
+                    ''')
     conn.commit()
 
 def add_new_data(search_term, image, recipe, restaurant):
-    query = 'insert into api_search values (?, ?, ?, ?)'
+    query = 'insert into api_search (search_term, image, recipe, restaurant) values (?, ?, ?, ?)'
     try:
         conn = sqlite3.connect('food_db.sqlite')
         cursor = conn.cursor()
-        with open:
-            cursor.execute(query, (search_term, image, recipe, restaurant))
-            conn.commit()
-            
-    except Exception as e:
+        with conn:
+            updated = cursor.execute(query, (search_term, image, recipe, restaurant))
+            rows_modified = updated.rowcount
+            return rows_modified
+    except sqlite3.Error as e:
+        print('Error adding new entry')
         print(e)
+    finally:
+        conn.close()
         
 
 def search_for_search_term(search_term):

@@ -4,12 +4,12 @@ import recipe_api
 import picture_api
 import search_util
 import yelp_api
+import database.data_query_functions as dbq
 
 from recipe_api import recipe_call
 from picture_api import request_images
 from search_util import prep_search_term
 from yelp_api import yelp_call
-from database.data_query_functions import add_new_data
 
 app = Flask(__name__) # __name__ references this file
 
@@ -30,7 +30,8 @@ def get_food():
     recipe_ingredients = food_recipe[1]
     recipe_instructions = food_recipe[2]
 
-    add_new_data(search_input, food_img, food_recipe, food_yelp)
+    rows_modified = dbq.add_new_data(search_input, food_img, food_recipe, food_yelp)
+    print(rows_modified)
 
     return render_template('food.html', search_term=search_input, food_img=food_img, food_yelp=food_yelp, recipe_title=recipe_title,
                            recipe_ingredients=recipe_ingredients, recipe_instructions=recipe_instructions)
