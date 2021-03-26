@@ -30,7 +30,7 @@ def get_food():
     recipe_ingredients = food_recipe[1]
     recipe_instructions = food_recipe[2]
 
-    rows_modified = dbq.add_new_data(search_input, food_img, food_recipe, food_yelp)
+    rows_modified = dbq.add_new_data(search_input, food_recipe, food_yelp)
     print(rows_modified)
 
     return render_template('food.html', search_term=search_input, food_img=food_img, food_yelp=food_yelp, recipe_title=recipe_title,
