@@ -22,12 +22,14 @@ def yelp_call(search_term):
     
     url = 'https://api.yelp.com/v3/businesses/search'
     # query = input('What type of restaurants? ')
+    #stores api key
     key = os.environ.get('YELP_API_KEY')
+    #loggs
     log = logging.getLogger()
 
     try:
-        headers = {'Authorization':'Bearer %s'% key}
-        params = { 
+        headers = {'Authorization':'Bearer %s'% key} #sets headers 
+        params = { #sets params 
             'term' : search_term,
             'categories': 'restaurants',
             'location': 'Minneapolis,MN',
