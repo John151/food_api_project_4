@@ -18,6 +18,16 @@
             <button type="submit" id="search_button" name="food_button" for="food_input" class="btn btn-outline-dark">Search</button>
         </div>
     </form>
+    <script>
+    <!-- Adds listener to enter button to activate search -->
+    var searchButton = document.getElementById("food_input")
+    searchButton.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+        event.preventDefault();
+        document.getElementById("search_button").click();
+    }
+});
+    </script>
 
 </div> <!-- End of container div -->
 
