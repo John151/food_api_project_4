@@ -11,6 +11,7 @@ import requests
 import logging
 import shelve #used for caching api responses 
 
+# This function makes request to the yelp API using the search_term as a parameter
 def yelp_call(search_term):
     cached_response = check_cache(search_term)
     
@@ -58,7 +59,7 @@ def yelp_call(search_term):
     except requests.exceptions.RequestException as e:
         log.critical('Error - exiting program')
         
-        
+  #checks for cache      
 def check_cache(search_term):
     s = shelve.open("yelp_cache")
 
@@ -70,13 +71,13 @@ def check_cache(search_term):
     else:
         return item_found
 
-
+#adds cache 
 def add_cache(search_term, data):
     s = shelve.open("yelp_cache")
     s[search_term] = data
 
 
-
+#This function gets data and returs the closest and first bussiness name from api response
 def get_business_name(data):
     business_name = data['businesses'][0]['name']
     return business_name
