@@ -8,3 +8,5 @@ api_key.py
 recipe_cache.db
 image_cache.db
 yelp_cache.db
+*.sqlite
+.vscode/settings.json
