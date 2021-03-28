@@ -3,13 +3,18 @@
 
 {% block content %}
 
-<!-- Double curly braces notation is like a print statement -->
-<h1>Here is your result for "{{search_term}}" ideas</h1>
+<div class="row" id="header">
+    <div class="col">
+        <!-- Double curly braces notation is like a print statement -->
+        <h1>Here is your result for "{{search_term}}" ideas</h1>
+    </div>
+</div> <!-- End of first row div -->
+
 
 <!-- Food Image -->
 {% if food_img %}
 
-<img src="{{food_img}}">
+<center><img src="{{food_img}}" width="850" height="750"></center>
 
 {% else %}
 
@@ -49,6 +54,6 @@
 
 {% endif %}
 
-<a href="http://127.0.0.1:5000/"><button class="btn btn-outline-dark">Search Again</button></a>
+<center><a href="http://127.0.0.1:5000/"><button class="btn btn-outline-dark">Search Again</button></a></center>
 
 {% endblock %}
