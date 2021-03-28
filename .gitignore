@@ -5,3 +5,4 @@ keys.txt
 __pycache__
 *.pyc
 api_key.py
+*.sqlite
