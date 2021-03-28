@@ -18,27 +18,30 @@ def create_api_table():
         cursor.execute('''CREATE TABLE IF NOT EXISTS api_search (
                         search_term TEXT UNIQUE,
                         image TEXT,
-                        recipe BLOB,
+                        recipe_title text,
+                        recipe_ingredients text,
+                        recipe_instructions text,
                         restaurant Text,
                         bookmark Text);
                         ''')
         conn.commit()
 
-
-def add_new_data(search_term, food_img, recipe, restaurant):
-    query = "insert into api_search (search_term, image, recipe, restaurant, bookmark) values (?, ?, ?, ?, ?)"
+def add_new_data(search_term, food_img, recipe_title, recipe_ingredients, recipe_instructions, restaurant):
+    query = """insert into api_search (search_term, image, recipe_title, 
+    recipe_ingredients, recipe_instructions, restaurant, bookmark) values (?, ?, ?, ?, ?, ?, ?)"""
     try:
-        recipe = str(recipe)
+        recipe_title = str(recipe_title)
+        recipe_ingredients = str(recipe_ingredients)
+        recipe_instructions = str(recipe_instructions)
         with sqlite3.connect('food_db.sqlite') as conn:
             cursor = conn.cursor()
-            updated = cursor.execute(query, (search_term, food_img, recipe, restaurant, 'True'))
+            updated = cursor.execute(query, (search_term, food_img, recipe_title, recipe_ingredients, recipe_instructions, restaurant, 'True'))
             rows_modified = updated.rowcount
             return rows_modified
     except sqlite3.Error as e:
         print('Error adding new entry')
         print(e)
-    finally:
-        conn.close()
+
 
 def bookmark_page():
     query = """update api_search 
@@ -56,7 +59,4 @@ def search_for_all_bookmarks():
     with sqlite3.connect('food_db.sqlite') as conn:    
         row = conn.execute(query)
         result = row.fetchall()
-        if result:
-            return result
-        else:
-            return False
+        return result

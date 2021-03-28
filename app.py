@@ -40,7 +40,7 @@ def get_food():
         recipe_ingredients = food_recipe[1]
         recipe_instructions = food_recipe[2]
 
-        dbq.add_new_data(search_input, food_img, food_recipe, food_yelp)
+        dbq.add_new_data(search_term, food_img, recipe_title, recipe_ingredients, recipe_instructions, food_yelp)
 
         return render_template(
             'food.html',
@@ -79,15 +79,8 @@ def get_food():
 def get_bookmarks():
     try:
         bookmarks = dbq.search_for_all_bookmarks()
-        return render_template('bookmarks.html', bookmark=bookmarks)
-    except Exception as e:
-        print(e)
-
-@app.route('/add-bookmark')
-def add_bookmark():
-    try:
-        dbq.bookmark_page()
-        return 1
+        return render_template('bookmarks.html', 
+                                bookmark=bookmarks,)
     except Exception as e:
         print(e)
 
