@@ -80,4 +80,3 @@ def check_cache(search_term):
 def add_cache(search_term, recipe):
     with shelve.open("recipe_cache") as s:
         s[search_term] = recipe
-        print(search_term, recipe)
