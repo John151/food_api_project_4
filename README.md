@@ -1,6 +1,8 @@
 Group 3 Restaurants and Foods 
 pip install -r requirements.txt
 
+To run the app use command: Flask run 
+
 
 App will be running on http://127.0.0.1:5000/ 
 
