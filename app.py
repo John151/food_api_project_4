@@ -40,9 +40,7 @@ def get_food():
         recipe_ingredients = food_recipe[1]
         recipe_instructions = food_recipe[2]
 
-        dbq.create_api_table()
-        rows_modified = dbq.add_new_data(search_input, food_img, food_recipe, food_yelp)
-        print(rows_modified)
+        dbq.add_new_data(search_input, food_img, food_recipe, food_yelp)
 
         return render_template(
             'food.html',

@@ -28,9 +28,8 @@ def add_new_data(search_term, food_img, recipe, restaurant):
     query = 'insert into api_search (search_term, image, recipe, restaurant) values (?, ?, ?, ?)'
     try:
         recipe = str(recipe)
-        conn = sqlite3.connect('food_db.sqlite')
-        cursor = conn.cursor()
-        with conn:
+        with sqlite3.connect('food_db.sqlite') as conn:
+            cursor = conn.cursor()
             updated = cursor.execute(query, (search_term, food_img, recipe, restaurant))
             rows_modified = updated.rowcount
             return rows_modified
@@ -42,10 +41,10 @@ def add_new_data(search_term, food_img, recipe, restaurant):
 
 def search_for_all():
     query = 'select * from api_search'
-    row = conn.execute(query)
-    result = row.fetchall()
-    row.close()
-    if result:
-        return result
-    else:
-        return False
+    with sqlite3.connect('food_db.sqlite') as conn:    
+        row = conn.execute(query)
+        result = row.fetchall()
+        if result:
+            return result
+        else:
+            return False
