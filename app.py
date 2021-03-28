@@ -87,7 +87,7 @@ def get_bookmarks():
 def add_bookmark():
     try:
         dbq.bookmark_page()
-        return
+        return 1
     except Exception as e:
         print(e)
 

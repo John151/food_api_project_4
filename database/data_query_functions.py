@@ -31,7 +31,7 @@ def add_new_data(search_term, food_img, recipe, restaurant):
         recipe = str(recipe)
         with sqlite3.connect('food_db.sqlite') as conn:
             cursor = conn.cursor()
-            updated = cursor.execute(query, (search_term, food_img, recipe, restaurant, 'False'))
+            updated = cursor.execute(query, (search_term, food_img, recipe, restaurant, 'True'))
             rows_modified = updated.rowcount
             return rows_modified
     except sqlite3.Error as e:
