@@ -18,15 +18,14 @@ def request_images(search_term):
         unsplash_url = 'https://api.unsplash.com/search/photos?'
         query = {'query': search_term, 'client_id': key}
         data = requests.get(unsplash_url, params=query).json()
-
+        """ try except to locate an image, if not it will display an
+        image of a nice table setting """
         try:
             image = data['results'][0]['urls']['regular']
-            add_cache(search_term, image)
-            print(image)
             return image
             
         except:
-            image = 'https://images.unsplash.com/photo-1517870662726-c1d98ee36250?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTEyMTJ8MHwxfHNlYXJjaHw0fHxlbXB0eSUyMHBsYXRlfGVufDB8fHx8MTYxNjgyMjkzMg&ixlib=rb-1.2.1&q=80&w=1080'
+            image = 'https://images.unsplash.com/photo-1608744221958-a842da518d01?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTEyMTJ8MHwxfHNlYXJjaHwxfHxjaGVlc2VzdGVha3xlbnwwfHx8fDE2MTY5MDUxMzg&ixlib=rb-1.2.1&q=80&w=1080'
             return image
 
 """ Checks for search term in cache """     
@@ -46,4 +45,4 @@ def check_cache(search_term):
 def add_cache(search_term, image):
     with shelve.open("image_cache") as s:
         s[search_term] = image
-        print(search_term, image)
+
