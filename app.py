@@ -4,6 +4,7 @@ import recipe_api
 import picture_api
 import search_util
 import yelp_api
+import database.data_query_functions as dbq
 
 from recipe_api import recipe_call
 from picture_api import request_images
@@ -33,6 +34,9 @@ def get_food():
         recipe_title = food_recipe[0]
         recipe_ingredients = food_recipe[1]
         recipe_instructions = food_recipe[2]
+
+        rows_modified = dbq.add_new_data(search_input, food_recipe, food_yelp)
+        print(rows_modified)
 
         return render_template(
             'food.html',
