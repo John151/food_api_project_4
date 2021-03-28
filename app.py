@@ -74,6 +74,23 @@ def get_food():
             error=f"Food with the name {search_input} cannot be found in the APIs. Try searching a term with no special characters or numbers."
         )
 
+""" Page that displays the bookmarks """
+@app.route('/get-bookmarks')
+def get_bookmarks():
+    try:
+        bookmarks = dbq.search_for_all_bookmarks()
+        return render_template('bookmarks.html', bookmark=bookmarks)
+    except Exception as e:
+        print(e)
+
+@app.route('/add-bookmark')
+def add_bookmark():
+    try:
+        dbq.bookmark_page()
+        return
+    except Exception as e:
+        print(e)
+
 if __name__ == '__main__':
     app.run(debug=True) # turn on developer mode, shows us actual errors when they pop up
 

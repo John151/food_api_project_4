@@ -1,0 +1,15 @@
+<!-- this notation is called Jinja2, a method of connecting Python code with HTML templates -->
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Double curly braces notation is like a print statement -->
+<h1>Here are your bookmakrs</h1>
+
+{% for food in bookmark %}
+    {{food}}
+{% endfor %}
+
+<a href="http://127.0.0.1:5000/"><button class="btn btn-outline-dark">Search Again</button></a>
+
+{% endblock %}

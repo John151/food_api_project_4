@@ -43,6 +43,12 @@
     {% endfor %}
 </ol>
 
+<form action="/add-bookmark">
+<button class="btn btn-outline-dark">Add Bookmark</button>
+</form>
+<a href="{{ url_for('get_bookmarks') }}"><button class="btn btn-outline-dark">Bookmarks</button></a>
+
+
 {% else %}
 
 <h2>Sorry, no recipes to display</h2>

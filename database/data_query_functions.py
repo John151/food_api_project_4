@@ -19,18 +19,19 @@ def create_api_table():
                         search_term TEXT UNIQUE,
                         image TEXT,
                         recipe BLOB,
-                        restaurant Text);
+                        restaurant Text,
+                        bookmark Text);
                         ''')
         conn.commit()
 
 
 def add_new_data(search_term, food_img, recipe, restaurant):
-    query = 'insert into api_search (search_term, image, recipe, restaurant) values (?, ?, ?, ?)'
+    query = "insert into api_search (search_term, image, recipe, restaurant, bookmark) values (?, ?, ?, ?, ?)"
     try:
         recipe = str(recipe)
         with sqlite3.connect('food_db.sqlite') as conn:
             cursor = conn.cursor()
-            updated = cursor.execute(query, (search_term, food_img, recipe, restaurant))
+            updated = cursor.execute(query, (search_term, food_img, recipe, restaurant, 'False'))
             rows_modified = updated.rowcount
             return rows_modified
     except sqlite3.Error as e:
@@ -39,8 +40,19 @@ def add_new_data(search_term, food_img, recipe, restaurant):
     finally:
         conn.close()
 
-def search_for_all():
-    query = 'select * from api_search'
+def bookmark_page():
+    query = """update api_search 
+               set bookmark = 'True'
+               where rowid = 
+               (select max(rowid) from api_search"""
+    with sqlite3.connect('food_db.sqlite') as conn:
+        cursor = conn.cursor()
+        bookmark = cursor.execute(query, (bookmark_me,))
+        conn.commit()
+
+
+def search_for_all_bookmarks():
+    query = "select * from api_search where bookmark = 'True'"
     with sqlite3.connect('food_db.sqlite') as conn:    
         row = conn.execute(query)
         result = row.fetchall()
