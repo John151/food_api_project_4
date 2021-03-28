@@ -16,7 +16,12 @@ app = Flask(__name__) # __name__ references this file
 """ Home page which is our index file """
 @app.route('/')
 def home_page():
+    db_exists = dbq.check_if_table_exists()
+    if not db_exists:
+        print('creating db')
+        dbq.create_api_table()
     return render_template('index.html')
+    
 
 """ Page that displays the result of API request """
 @app.route('/get-food')
@@ -35,7 +40,8 @@ def get_food():
         recipe_ingredients = food_recipe[1]
         recipe_instructions = food_recipe[2]
 
-        rows_modified = dbq.add_new_data(search_input, food_recipe, food_yelp)
+        dbq.create_api_table()
+        rows_modified = dbq.add_new_data(search_input, food_img, food_recipe, food_yelp)
         print(rows_modified)
 
         return render_template(

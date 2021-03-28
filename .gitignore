@@ -9,4 +9,8 @@ recipe_cache.db
 image_cache.db
 yelp_cache.db
 *.sqlite
+*.sqlite-journal
 .vscode/settings.json
+*.bak
+*.dat
+*.dir
