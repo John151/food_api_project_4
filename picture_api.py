@@ -1,6 +1,5 @@
 import requests
 import os
-import random
 import shelve
 
 
@@ -13,17 +12,17 @@ def request_images(search_term):
         return cached_response
     else:
         print('cache not accessed')
-        """ If no result in cache, will takes search term, request image from unsplash and pick one out of the top 5 results
-        at random and returns that result while storing it in cache """
-        pick = random.randint(1, 5)
+        """ If no result in cache, will takes search term, request image from unsplash and 
+        returns the top result while storing it in cache """
         key = os.environ.get('UNSPLASH_KEY') # calls env variable
         unsplash_url = 'https://api.unsplash.com/search/photos?'
         query = {'query': search_term, 'client_id': key}
         data = requests.get(unsplash_url, params=query).json()
 
         try:
-            image = data['results'][pick]['urls']['regular']
+            image = data['results'][0]['urls']['regular']
             add_cache(search_term, image)
+            print(image)
             return image
             
         except:
