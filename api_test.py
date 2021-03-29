@@ -36,7 +36,7 @@ class TestAPICalls(TestCase):
   # Tests if an incorrect result matches search 
   def test_matching_wrong_image_url(self):
     test_search_term = 'hamburger'
-    mock_result = 'https://images.unsplash.com/photo-1608744221958-a842da518d01?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTEyMTJ8MHwxfHNlYXJjaHwxfHxjaGVlc2VzdGVha3xlbnwwfHx8fDE2MTY5MDUxMzg&ixlib=rb-1.2.1&q=80&w=1080' 
+    mock_result = 'https://images.unsplash.com/photo-1608744221958xlib=rb-1.2.1&q=80&w=1080' 
     test_search = request_images(test_search_term)
     self.assertNotEqual(mock_result, test_search)
 

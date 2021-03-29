@@ -21,7 +21,7 @@ def request_images(search_term):
         """ try except to locate an image, if not it will display an
         image of a nice table setting """
         try:
-            image = data['results'][0]['urls']['regular']
+            image = data['results'][1]['urls']['regular']
             return image
             
         except:
