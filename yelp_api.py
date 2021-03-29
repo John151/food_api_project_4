@@ -49,8 +49,8 @@ def yelp_call(search_term):
                 rating = r['rating']
                 location = r['location']
                 display_phone = r['display_phone']
-                address = ','.join(location['display_address'])
-                yelp_results = f'{name}, rated {rating} stars, {address}, {display_phone}'
+                address = ', '.join(location['display_address'])
+                yelp_results = f'{name}, rated {rating} stars, {address} {display_phone}'
                 add_cache(search_term, yelp_results)
                 return yelp_results
             
