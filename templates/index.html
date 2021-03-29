@@ -13,29 +13,51 @@
 });
 </script>
 
-<div class="container">
-    
-    <div class="row" id="header">
-        <div class="p-3">
-            <h1>What to Eat?</h1>
+<body>
+    <div id="content-wrap">
+
+        <div class="row" id="header">
+            <div class="col">
+                <h1>What to Eat?</h1>
+            </div>
+        </div> <!-- End of first row div -->
+
+        <div class="row" id="row2">
+            <h2>What are you in the mood for?</h2>
+        </div> <!-- End of second row div -->
+
+        <form action="/get-food" method="GET">
+            <div class="center" id="search">
+                <input type="search" id="food_input" name="food_input" placeholder="Search" required><br>
+                <button type="submit" id="search_button" name="food_button" for="food_input" class="btn btn-outline-dark">Search</button>
+            </div>
+        </form>
+
+        <div class=row id="row3">
+            {% if search_success == False %}
+                <br/>
+                <div class="alert alert-danger" role="alert">
+                    <p>{{error}}</p>
+                </div> 
+            {% endif %}
         </div>
-    </div> <!-- End of first row div -->
 
-    <h2>What are you in the mood for?</h2>
-    
-    <form action="/get-food" method="GET">
-        <div class="center">
-            <input type="search" id="food_input" name="food_input" placeholder="Search" required><br>
-            <button type="submit" id="search_button" name="food_button" for="food_input" class="btn btn-outline-dark">Search</button>
-        </div>
-    </form>
-    {% if search_success == False %}
-        <br/>
-        <p>{{error}}</p>
-    {% endif %}
+        <footer>
+            <div class="row">
+                <div class="col-md-4">
+                    <p>Created by: Omar Mohamud, John Cokins, Johnny Ly & Shawn Jones</p>
+                </div>
+                
+                <div class="col-md-4">
+                    <p>APIs used: Yelp, Spoonacular, Unsplash</p>
+                </div>
+                <div class="col-md-4">
+                    <p>Software Development Capstone Project 4 Spring 2021</p>
+                </div>
+            </div>
+        </footer>
+        
+    </div> <!-- End of content wrap div -->
 
-</div> <!-- End of container div -->
-
-
-
+</body>
 {% endblock %}

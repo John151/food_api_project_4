@@ -48,7 +48,7 @@ def get_food():
             recipe_instructions=recipe_instructions,
             search_success=True
         )
-    except ValueError: 
+    except KeyError: 
         return render_template(
             'index.html',
             search_term=search_term, 
