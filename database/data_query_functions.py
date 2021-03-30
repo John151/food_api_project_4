@@ -55,7 +55,8 @@ def bookmark_page():
 
 
 def search_for_all_bookmarks():
-    query = "select * from api_search where bookmark = 'True'"
+    query = "select * from api_search_bookmark
+    where bookmark = 'True'"
     with sqlite3.connect('food_db.sqlite') as conn:    
         row = conn.execute(query)
         result = row.fetchall()
