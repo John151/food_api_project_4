@@ -5,7 +5,7 @@ conn = sqlite3.connect('food_db.sqlite')
 
 # function checks if table exists, count will = 1 if there is a table, zero if not
 def check_if_table_exists():
-    table_check = "SELECT count(*) FROM sqlite_schema WHERE type='table' AND name='api_search';"
+    table_check = "SELECT count(*) FROM sqlite_schema WHERE type='table' AND name='api_search_bookmark';"
     with sqlite3.connect('food_db.sqlite') as conn:
         cursor = conn.cursor()
         result = cursor.execute(table_check)
@@ -42,21 +42,20 @@ def add_new_data(search_term, food_img, recipe_title, recipe_ingredients, recipe
         print('Error adding new entry')
         print(e)
 
-
-def bookmark_page():
-    query = """update api_search_bookmark 
-               set bookmark = 'True'
-               where rowid = 
-               (select max(rowid) from api_search"""
-    with sqlite3.connect('food_db.sqlite') as conn:
-        cursor = conn.cursor()
-        bookmark = cursor.execute(query, (bookmark_me,))
-        conn.commit()
+# def bookmark_page():
+#     query = """update api_search_bookmark 
+#                set bookmark = 'True'
+#                where rowid = 
+#                (select max(rowid) from api_search"""
+#     with sqlite3.connect('food_db.sqlite') as conn:
+#         cursor = conn.cursor()
+#         bookmark = cursor.execute(query, (bookmark_me,))
+#         conn.commit()
 
 
 def search_for_all_bookmarks():
-    query = "select * from api_search_bookmark
-    where bookmark = 'True'"
+    query = """select * from api_search_bookmark
+    where bookmark = 'True'"""
     with sqlite3.connect('food_db.sqlite') as conn:    
         row = conn.execute(query)
         result = row.fetchall()
