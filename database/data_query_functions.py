@@ -5,7 +5,7 @@ conn = sqlite3.connect('food_db.sqlite')
 
 # function checks if table exists, count will = 1 if there is a table, zero if not
 def check_if_table_exists():
-    table_check = "SELECT count(*) FROM sqlite_schema WHERE type='table' AND name='api_search';"
+    table_check = "SELECT count(*) FROM sqlite_schema WHERE type='table' AND name='api_search_bookmark';"
     with sqlite3.connect('food_db.sqlite') as conn:
         cursor = conn.cursor()
         result = cursor.execute(table_check)
@@ -14,36 +14,39 @@ def check_if_table_exists():
 
 def create_api_table():
     with sqlite3.connect('food_db.sqlite') as conn:
-        conn.execute('''CREATE TABLE IF NOT EXISTS api_search (
+        cursor = conn.cursor()
+        cursor.execute('''CREATE TABLE IF NOT EXISTS api_search_bookmark (
                         search_term TEXT UNIQUE,
-                        recipe BLOB,
-                        restaurant Text);
+                        image TEXT,
+                        recipe_title text,
+                        recipe_ingredients text,
+                        recipe_instructions text,
+                        restaurant Text,
+                        bookmark Text);
                         ''')
         conn.commit()
 
-
-def add_new_data(search_term, recipe, restaurant):
-    query = 'insert into api_search (search_term, recipe, restaurant) values (?, ?, ?)'
+def add_new_data(search_term, food_img, recipe_title, recipe_ingredients, recipe_instructions, restaurant):
+    query = """insert into api_search_bookmark (search_term, image, recipe_title, 
+    recipe_ingredients, recipe_instructions, restaurant, bookmark) values (?, ?, ?, ?, ?, ?, ?)"""
     try:
-        recipe = str(recipe)
-        conn = sqlite3.connect('food_db.sqlite')
-        cursor = conn.cursor()
-        with conn:
-            updated = cursor.execute(query, (search_term, recipe, restaurant))
+        recipe_title = str(recipe_title)
+        recipe_ingredients = str(recipe_ingredients)
+        recipe_instructions = str(recipe_instructions)
+        with sqlite3.connect('food_db.sqlite') as conn:
+            cursor = conn.cursor()
+            updated = cursor.execute(query, (search_term, food_img, recipe_title, recipe_ingredients, recipe_instructions, restaurant, 'True'))
             rows_modified = updated.rowcount
             return rows_modified
     except sqlite3.Error as e:
         print('Error adding new entry')
         print(e)
-    finally:
-        conn.close()
 
-def search_for_all():
-    query = 'select * from api_search'
-    row = conn.execute(query)
-    result = row.fetchall()
-    row.close()
-    if result:
+
+def search_for_all_bookmarks():
+    query = """select * from api_search_bookmark
+    where bookmark = 'True'"""
+    with sqlite3.connect('food_db.sqlite') as conn:    
+        row = conn.execute(query)
+        result = row.fetchall()
         return result
-    else:
-        return False

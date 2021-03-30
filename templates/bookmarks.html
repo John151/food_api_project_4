@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+<head>
+    <link rel="stylesheet" href="bookmark.css">
+</head>
+
+{% block content %}
+
+<h1>Here are your previous searches</h1>
+
+{% for food in bookmark %}
+
+<img src="{{food[1]}}">
+
+<h2>{{food[2]}}</h2>
+</br>
+
+<div class="float-container">
+    <div class="float-child">
+
+        {{food[3]}}
+
+    </div>
+    <div class="float-child">
+
+        {{food[4]}}
+
+        </div> <!-- end child 2-->
+    
+    </div> <!-- end container-->
+
+    </div>
+</div>
+{% endfor %}
+
+
+
+<a href="http://127.0.0.1:5000/"><button class="btn btn-outline-dark">Search Again</button></a>
+
+{% endblock %}
+<!-- code for child/parent container found at: https://coder-coder.com/display-divs-side-by-side/ -->
