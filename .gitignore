@@ -10,3 +10,6 @@ image_cache.db
 yelp_cache.db
 *.sqlite
 .vscode/settings.json
+*.bak
+*.dat
+*.dir

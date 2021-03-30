@@ -3,15 +3,23 @@ import sqlite3
 # create or connect to database
 conn = sqlite3.connect('food_db.sqlite')
 
+# function checks if table exists, count will = 1 if there is a table, zero if not
+def check_if_table_exists():
+    table_check = "SELECT count(*) FROM sqlite_schema WHERE type='table' AND name='api_search';"
+    with sqlite3.connect('food_db.sqlite') as conn:
+        cursor = conn.cursor()
+        result = cursor.execute(table_check)
+        table_exists = result.fetchone()[0]
+        return table_exists
 
 def create_api_table():
-    cursor = conn.cursor()
-    conn.execute('''CREATE TABLE IF NOT EXISTS api_search (
-                    search_term TEXT UNIQUE,
-                    recipe BLOB,
-                    restaurant Text);
-                    ''')
-    conn.commit()
+    with sqlite3.connect('food_db.sqlite') as conn:
+        conn.execute('''CREATE TABLE IF NOT EXISTS api_search (
+                        search_term TEXT UNIQUE,
+                        recipe BLOB,
+                        restaurant Text);
+                        ''')
+        conn.commit()
 
 
 def add_new_data(search_term, recipe, restaurant):
