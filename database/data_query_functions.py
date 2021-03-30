@@ -15,7 +15,7 @@ def check_if_table_exists():
 def create_api_table():
     with sqlite3.connect('food_db.sqlite') as conn:
         cursor = conn.cursor()
-        cursor.execute('''CREATE TABLE IF NOT EXISTS api_search (
+        cursor.execute('''CREATE TABLE IF NOT EXISTS api_search_bookmark (
                         search_term TEXT UNIQUE,
                         image TEXT,
                         recipe_title text,
@@ -27,7 +27,7 @@ def create_api_table():
         conn.commit()
 
 def add_new_data(search_term, food_img, recipe_title, recipe_ingredients, recipe_instructions, restaurant):
-    query = """insert into api_search (search_term, image, recipe_title, 
+    query = """insert into api_search_bookmark (search_term, image, recipe_title, 
     recipe_ingredients, recipe_instructions, restaurant, bookmark) values (?, ?, ?, ?, ?, ?, ?)"""
     try:
         recipe_title = str(recipe_title)
@@ -44,7 +44,7 @@ def add_new_data(search_term, food_img, recipe_title, recipe_ingredients, recipe
 
 
 def bookmark_page():
-    query = """update api_search 
+    query = """update api_search_bookmark 
                set bookmark = 'True'
                where rowid = 
                (select max(rowid) from api_search"""
